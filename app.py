@@ -33,8 +33,19 @@ def get_printers():
 
 @app.route("/management/print")
 def printers():
-    printers = get_printers()
-    return render_template("print.html", printers=printers)
+    printers_info = []
+    for printer in get_printers():
+        try:
+            dev_mode = win32print.GetPrinter(win32print.OpenPrinter(printer), 2)['pDevMode']
+            duplex = dev_mode.Duplex > 1 if dev_mode and hasattr(dev_mode, "Duplex") else False
+        except Exception:
+            duplex = False  # Si hay un error, asumimos que no tiene impresión a doble cara
+        
+        printers_info.append({"name": printer, "duplex": duplex})
+
+    return render_template("print.html", printers=printers_info)
+
+
 
 @app.route("/management/api")
 def get_api():

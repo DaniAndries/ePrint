@@ -1,57 +1,60 @@
-{% extends "index.html" %}
+{% extends 'index.html' %}
 
-{% block title %}Impresión - ePrint{% endblock %}
+{% block title %}
+  Impresión - ePrint
+{% endblock %}
 
 {% block content %}
-<h1>Seleccionar impresora</h1>
-<p>Devuelve una lista de todas las impresoras disponibles</p>
+  <h1>Seleccionar impresora</h1>
+  <p>Devuelve una lista de todas las impresoras disponibles</p>
 
-<form id="form-1" class="d-flex flex-column" onsubmit="post_file(); return false;">
-  <div class="mb-3">
-    <label class="form-label">Seleccionar impresora:</label>
-    <select class="form-select">
-      {% for printer in printers %}
-      <option value="{{ printer }}">{{ printer }}</option>
-      {% endfor %}
-    </select>
-  </div>
-
-  <div class="mb-3">
-    <label for="copiesNumber" class="form-label">Número de copias:</label>
-    <input name="copies" required type="number" id="copiesNumber" value="1" min="1" max="10" class="form-control"
-      placeholder="Número de copias a imprimir">
-  </div>
-
-  <div class="mb-3">
-    <label for="formatField" class="form-label">Elige el archivo a imprimir:</label>
-    <input name="format" required type="file" id="formatField" accept=".pdf" class="form-control">
-  </div>
-
-  <fieldset class="mb-3" id="printModeField">
-    <legend>Modo de impresión</legend>
-    <div class="form-check">
-      <input type="radio" required name="driver" id="r1" value="Una cara" class="form-check-input" checked>
-      <label for="r1" class="form-check-label">Una cara</label>
+  <form id="form-1" class="d-flex flex-column" onsubmit="post_file(); return false;">
+    <div class="mb-3">
+      <label class="form-label">Seleccionar impresora:</label>
+      <select id="printerSelect" class="form-select">
+        {% for printer in printers %}
+          <option value="{{ printer.name }}" data-duplex="{{ printer.duplex|lower }}">{{ printer.name }}</option>
+        {% endfor %}
+      </select>
     </div>
-    <div class="form-check">
-      <input type="radio" name="driver" id="r2" value="Doble cara" class="form-check-input">
-      <label for="r2" class="form-check-label">Doble cara</label>
+
+    <div class="mb-3">
+      <label for="copiesNumber" class="form-label">Número de copias:</label>
+      <input name="copies" required type="number" id="copiesNumber" value="1" min="1" max="10" class="form-control" placeholder="Número de copias a imprimir" />
     </div>
-  </fieldset>
 
-  <button type="submit" class="btn btn-primary">Enviar</button>
-</form>
+    <div class="mb-3">
+      <label for="formatField" class="form-label">Elige el archivo a imprimir:</label>
+      <input name="format" required type="file" id="formatField" accept=".pdf" class="form-control" />
+    </div>
 
-<script>
-  function updatePrintMode() {
-    if (printerSelect.supportsDuplex) {
-      document.getElementById("r1").checked = true;
-      doubleSidedOption.style.display = "block";
-    } else {
-      doubleSidedOption.style.display = "none";
-      document.getElementById("r1").checked = true;
-    }
-  }
-</script>
+    <fieldset class="mb-3" id="printModeField">
+      <legend>Modo de impresión</legend>
+      <div class="form-check">
+        <input type="radio" required name="driver" id="r1" value="Una cara" class="form-check-input" checked />
+        <label for="r1" class="form-check-label">Una cara</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" name="driver" id="r2" value="Doble cara" class="form-check-input" />
+        <label for="r2" class="form-check-label">Doble cara</label>
+      </div>
+    </fieldset>
 
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+  <script>
+    document.getElementById('printerSelect').addEventListener('change', function () {
+      let selectedOption = this.options[this.selectedIndex]
+      let duplex = selectedOption.getAttribute('data-duplex') === 'true'
+    
+      let radioDobleCara = document.getElementById('r2')
+      radioDobleCara.disabled = !duplex
+    
+      if (!duplex && radioDobleCara.checked) {
+        document.getElementById('r1').checked = true
+      }
+    })
+    
+    document.getElementById('printerSelect').dispatchEvent(new Event('change'))
+  </script>
 {% endblock %}
