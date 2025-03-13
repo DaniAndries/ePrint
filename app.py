@@ -1,3 +1,4 @@
+from platform import release
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 import requests
 import config
@@ -23,21 +24,17 @@ def get_info():
         return jsonify({"error": str(e)}), 500
 
 
-@app.route("/management/printers", methods=["GET"])
 def get_printers():
     try:
-        printers = win32print.EnumPrinters(win32print.PRINTER_ENUM_LOCAL)
-        response = requests.get(url)
-        response.raise_for_status()
-        return jsonify(response.json())
-    except requests.exceptions.RequestException as e:
-        return jsonify({"error": str(e)}), 500
+        return [printer[2] for printer in win32print.EnumPrinters(2)]
+    except Exception:
+        return []
 
 
-# @app.route("/management/printers/<int:printer_id>", methods=["POST"])
-# def get_printers():
-#     return jsonify(), 500
-
+@app.route("/management/print")
+def printers():
+    printers = get_printers()
+    return render_template("print.html", printers=printers)
 
 @app.route("/management/api")
 def get_api():
@@ -49,13 +46,12 @@ def get_api():
         return jsonify({"error": str(e)}), 500
 
 
-@app.route("/management/version")
-def get_version():
+@app.route("/management/versions")
+def get_versions():
     try:
-        response = requests.get(url)
-        response.raise_for_status()
-        return jsonify(response.json())
-    except requests.exceptions.RequestException as e:
+       
+        return render_template("version.html")
+    except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 
