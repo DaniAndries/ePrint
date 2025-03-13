@@ -1,0 +1,57 @@
+/* Reset básico */
+* {
+    margin: 10;
+    padding: 10;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+/* Estilos para la navbar */
+.navbar {
+    background-color: #57886C !important;
+    /* Color principal */
+    padding: 10px 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    color: white !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    margin-right: 15px;
+    transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #c2eaba !important;
+    /* Color más claro al pasar el cursor */
+}
+
+.navbar-toggler {
+    border: none;
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
+.nav-item.active .nav-link {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.nav-item .disabled {
+    color: rgba(255, 255, 255, 0.5) !important;
+    cursor: not-allowed;
+}
