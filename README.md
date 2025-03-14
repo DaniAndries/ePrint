@@ -1,61 +1,44 @@
-# 🖨️ Aplicación de Impresión de Documentos PDF
+🖨️ Aplicación de Impresión de Documentos PDF
+Esta aplicación proporciona una interfaz gráfica y una API para seleccionar una impresora y enviar documentos PDF a imprimir de manera sencilla.
 
-Bienvenido a la Aplicación de Impresión de Documentos PDF. Este proyecto permite enviar documentos PDF a impresoras locales a través de una interfaz gráfica y una pequeña API. Los usuarios pueden seleccionar una impresora de una lista y enviar documentos para su impresión de manera sencilla y eficiente.
+✨ Características Principales
 
-<p align="center">
-  <img src="https://media.giphy.com/media/xT9IgG50Fb7Mi0prBC/giphy.gif" alt="Impresión en proceso" width="300" height="200">
-</p>
+🌐 Interfaz web intuitiva para la selección de impresoras y envío de documentos.
+📄 Soporte para archivos PDF con conversión de imagen previa a la impresión.
+🔄 Gestor de trabajos de impresión con información detallada de impresoras disponibles.
+🔒 Compatibilidad con Windows mediante el uso de pywin32 para la gestión de impresoras.
 
-## ✨ Características Principales
-- 🎛️ **Interfaz gráfica intuitiva:** Permite seleccionar impresoras disponibles y enviar documentos a imprimir.
-- 📜 **Impresión de documentos PDF:** Compatibilidad con archivos PDF sin necesidad de software adicional.
-- 🔧 **Soporte para múltiples impresoras:** Obtiene la lista de impresoras disponibles en el sistema.
-- 🚀 **API para integración:** Permite a otras aplicaciones enviar documentos a imprimir mediante solicitudes HTTP.
+🛠️ Tecnologías Utilizadas
 
-## 🛠️ Stack Tecnológico
-- **Python**: Lenguaje principal para la lógica del servidor.
-- **Flask**: Framework liviano para la API y la interfaz gráfica.
-- **Flask-Cors**: Permite solicitudes desde distintos orígenes.
-- **Bootstrap**: Mejora la apariencia de la interfaz.
-- **PDFium**: Renderiza documentos PDF.
-- **pdftopng**: Convierte PDFs en imágenes para vista previa.
-- **Pillow**: Manipulación de imágenes.
-- **pywin32**: Interacción con impresoras en Windows.
+Bootstrap: Interfaz web responsiva.
+Flask & Flask-Cors: Backend y API REST.
+PDFium & pdftopng: Conversión de documentos PDF.
+Pillow: Manipulación de imágenes.
+pywin32: Manejo de impresoras en Windows.
 
-## 💻 Guía de Instalación
-```bash
-# 1. Clona el repositorio
-git clone https://github.com/DaniAndries/ePrint.git
+📌 Endpoints de la API
+General
+GET /
+Devuelve la página de inicio de la aplicación.
 
-# 2. Accede al directorio
-cd ePrint
+Administración
+GET /management/about
+Obtiene información del sistema.
 
-# 3. Crea y activa un entorno virtual
-python -m venv .venv
-source .venv/bin/activate  # En Windows: .venv\Scripts\activate
+GET /management/print
+Lista las impresoras disponibles.
 
-# 4. Instala dependencias
-pip install -r requirements.txt
-```
+GET /management/versions
+Obtiene las versiones de la aplicación.
 
-## 🚀 Instrucciones de Uso
-```bash
-# Iniciar la aplicación
-flask run
-```
+GET /management/docs
+Obtiene información de la API.
 
-Luego, accede a `http://127.0.0.1:19191/` en tu navegador para seleccionar una impresora y enviar documentos a imprimir.
+Impresión
+GET /printers
+Obtiene la lista de impresoras disponibles en el equipo.
 
-## 📡 API Endpoints
-- `GET /printers` → Obtiene la lista de impresoras disponibles.
-- `POST /printers/{printer_id}` → Envía un documento PDF a la impresora especificada.
+POST /printers/{printer_id}
+Envía un documento a la impresora especificada.
 
-## 📜 Licencia
-Este proyecto está disponible bajo la licencia MIT.
-
----
-
-<p align="center">
-  🎉 ¡Gracias por usar la Aplicación de Impresión de Documentos PDF! 🎉
-</p>
-
+🚀 Instalación y Ejecución
