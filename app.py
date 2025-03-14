@@ -8,10 +8,8 @@ from flasgger import Swagger
 import config
 import logger as R
 
-# Inicializa el logger para registrar eventos importantes
 R.Logger("logs")
 
-# Crea la aplicacion Flask
 app = Flask(__name__)
 # Configura Swagger para la documentacion de la API
 swagger = Swagger(app)
@@ -35,9 +33,8 @@ def home():
 def get_info():
     R.info("Cargando informacion")
     try:
-        # Realiza una peticion a un endpoint remoto
         response = requests.get(config.BASE_URL)
-        response.raise_for_status()  # Si hay un error en la respuesta, lanza una excepcion
+        response.raise_for_status()
         return render_template(
             "about.html",
             LOGS=config.LOGS,
@@ -46,7 +43,6 @@ def get_info():
             VERSION=config.VERSION,
         )
     except requests.exceptions.RequestException as e:
-        # Maneja errores de peticiones HTTP
         R.error(f"Error: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
@@ -77,7 +73,6 @@ def get_printers():
             printers_info.append({"name": printer, "duplex": duplex})
         return jsonify(printers_info)
     except Exception as e:
-        # Maneja cualquier error al obtener las impresoras
         R.error(f"Error: {str(e)}")
         return jsonify([]), 500
 
@@ -91,7 +86,6 @@ def printers():
         printers_info = get_printers().json
         return render_template("print.html", printers=printers_info)
     except Exception as e:
-        # Maneja el error si no se puede obtener la informacion de las impresoras
         R.error(f"Error al obtener impresoras: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
@@ -104,7 +98,6 @@ def get_versions():
         # Obtiene las versiones desde la configuracion y las pasa a la plantilla
         return render_template("version.html", versions=config.CHANGES["versions"])
     except Exception as e:
-        # Maneja cualquier error al cargar la informacion de las versiones
         R.error(f"Error al cargar versiones: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
@@ -149,7 +142,6 @@ temp_folder = "temp_folder"
 if not os.path.exists(temp_folder):
     os.makedirs(temp_folder)
 
-# Inicia la aplicacion Flask
 if __name__ == "__main__":
     R.info("--------------------------Iniciando programa--------------------------")
     app.run()
