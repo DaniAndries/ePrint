@@ -25,10 +25,10 @@ Bienvenido a la Aplicación de Impresión de Documentos PDF. Este proyecto permi
 ## 💻 Guía de Instalación
 ```bash
 # 1. Clona el repositorio
-git clone https://github.com/tu_usuario/tu_repositorio.git
+git clone https://github.com/DaniAndries/ePrint.git
 
 # 2. Accede al directorio
-cd tu_repositorio
+cd ePrint
 
 # 3. Crea y activa un entorno virtual
 python -m venv .venv
