@@ -68,6 +68,12 @@ flask run
 3. Seleccionar una impresora disponible.
 4. Subir un documento PDF y enviarlo a imprimir.
 
+## 🤝 Colaboradores
+Este proyecto ha sido desarrollado en colaboración con:
+
+- [joseangel109](https://github.com/joseangel109)
+- [DaniAndries](https://github.com/DaniAndries)
+
 ## 📄 Licencia
 Este proyecto se distribuye bajo la licencia MIT.
 
