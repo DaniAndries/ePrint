@@ -1,22 +1,18 @@
 <!-- Pagina inicial
  Mostrar propiedades como la version, la plataforma, el directorio de instalacion y el archivo de logs -->
+{% extends 'index.html' %}
 
-<!DOCTYPE html>
-<html lang="es">
+{% block title %}
+  Control - ePrint
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ePrint</title>
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <link rel="icon" href="static/impresora.ico" />
-</head>
+{% block content %}
+  <h2>Información del Sistema</h2>
+  <ul>
+    <li><strong>Versión:</strong> {{ VERSION }}</li>
+    <li><strong>Plataforma:</strong> {{ PLATFORM }}</li>
+    <li><strong>Directorio de Instalación:</strong> {{ PATH }}</li>
+    <li><strong>Archivo de Logs:</strong> {{ LOGS }}</li>
+  </ul>
+{% endblock %}
 
-<body>
-    
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> -->
-</body>
-
-</html>

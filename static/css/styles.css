@@ -1,0 +1,159 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    /* Usar la misma fuente que antes */
+}
+
+body {
+    background-color: #f4f4f4;
+    /* Fondo suave */
+}
+
+/* Estilo de la barra de navegación */
+.navbar {
+    background-color: #9bcf5d !important;
+    /* Color principal */
+    padding: 15px 30px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    /* Sombra más suave */
+    border-radius: 5px;
+}
+
+.navbar-brand {
+    color: white !important;
+    font-weight: bold;
+    font-size: 1.75rem;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    margin-right: 20px;
+    font-weight: 500;
+    padding: 8px 15px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #f8f9fa !important;
+    background-color: rgba(255, 255, 255, 0.2);
+    /* Fondo suave al hacer hover */
+    border-radius: 5px;
+}
+
+.navbar-toggler {
+    border: none;
+    background-color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
+
+.nav-item .disabled {
+    color: rgba(255, 255, 255, 0.6) !important;
+    cursor: not-allowed;
+}
+
+/* Estilos para el contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos de los títulos */
+h1,
+h2,
+h3 {
+    color: #333;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+/* Estilos de los botones */
+.btn {
+    background-color: #9bcf5d;
+    /* Color principal */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #7aa84b;
+    /* Color más oscuro al pasar el ratón */
+    color: white;
+}
+
+/* Estilos de los enlaces */
+a {
+    color: #9bcf5d;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #7aa84b;
+}
+
+/* Pie de página */
+footer {
+    background-color: #9bcf5d;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 0 0 10px 10px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 20px;
+    }
+
+    .navbar-brand {
+        font-size: 1.5rem;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 1rem;
+        margin-right: 10px;
+    }
+
+    .navbar-toggler {
+        padding: 6px 10px;
+    }
+
+    .container {
+        padding: 15px;
+        margin: 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+}

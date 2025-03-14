@@ -1,0 +1,25 @@
+{ 
+    "app_name": "ePrint",
+    "versions": [
+        {
+            "version": "1.1.0",
+            "release_date": "2025-04-15",
+            "changes": [
+            "Nueva opcion para seleccionar calidad de impresion.",
+            "Se mejoro la conversion de imágenes a PDF.",
+            "Correccion de errores menores en la interfaz de usuario."
+            ],
+            "download_url": "https://example.com/downloads/eprint_1.1.0.exe"
+        },
+        {
+            "version": "1.0.0",
+            "release_date": "2025-03-14",
+            "changes": [
+            "Se agrego compatibilidad con formatos PDF.",
+            "Mejora en la velocidad de procesamiento de archivos grandes.",
+            "Correccion de errores al imprimir en ciertas impresoras de red."
+            ],
+            "download_url": "https://example.com/downloads/eprint_1.2.0.exe"
+        }
+    ]
+}

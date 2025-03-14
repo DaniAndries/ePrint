@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+
+{% block title %}
+  Documentación - ePrint
+{% endblock %}
+
+{% block content %}
+<h1 style="text-align: center;">Documentación de la API</h1>
+<div id="swagger-ui"></div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js"></script>
+
+<script>
+    window.onload = function() {
+        const ui = SwaggerUIBundle({
+            url: "{{ url_for('static', filename='ePrint-1.0.0.yaml') }}",  // Carga el YAML desde /static/
+            dom_id: '#swagger-ui',
+            presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+            layout: "BaseLayout",
+        });
+    };
+</script>
+{% endblock %}
