@@ -15,7 +15,7 @@
 <script>
     window.onload = function() {
         const ui = SwaggerUIBundle({
-            url: "{{ url_for('static', filename='ePrint-1.0.0.yaml') }}",  // Carga el YAML desde /static/
+            url: "{{ url_for('static', filename='ePrint-1.0.0.yaml') }}", 
             dom_id: '#swagger-ui',
             presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
             layout: "BaseLayout",

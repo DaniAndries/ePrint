@@ -1,7 +1,6 @@
 function post_file(event) {
   event.preventDefault();
 
-  // Mostrar indicador de carga
   const submitButton = document.querySelector('button[type="submit"]');
   const originalText = submitButton.textContent;
   submitButton.textContent = "Enviando...";
@@ -70,7 +69,6 @@ function resetSubmitButton() {
   submitButton.disabled = false;
 }
 
-// Función para cargar las impresoras
 function loadPrinters() {
   const printerSelect = document.getElementById("printerSelect");
 
