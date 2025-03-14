@@ -71,7 +71,7 @@ flask run
 ## 🤝 Colaboradores
 Este proyecto ha sido desarrollado en colaboración con:
 
-- [joseangel109](https://github.com/joseangel109)
+- [JoseAngelHub](https://github.com/JoseAngelHub)
 - [DaniAndries](https://github.com/DaniAndries)
 
 ## 📄 Licencia
