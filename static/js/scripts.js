@@ -88,7 +88,7 @@ function loadPrinters() {
       if (!response.ok) {
         throw new Error("No se pudieron cargar las impresoras");
       }
-      return response.json();
+      return response.json(); // Parse JSON response
     })
     .then((printers) => {
       printerSelect.innerHTML = ""; // Limpia las opciones previas
@@ -108,7 +108,7 @@ function loadPrinters() {
         printerSelect.appendChild(option);
       });
 
-      // Dispara un evento para actualizar la seleccion
+      // Dispara un evento para actualizar la selección
       printerSelect.dispatchEvent(new Event("change"));
     })
     .catch((error) => {
@@ -117,6 +117,7 @@ function loadPrinters() {
         '<option value="">Error al cargar impresoras</option>';
     });
 }
+
 
 // Evento que se dispara cuando la pagina se ha cargado completamente
 document.addEventListener("DOMContentLoaded", function () {

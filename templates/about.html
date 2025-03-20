@@ -5,11 +5,12 @@
 {% endblock %}
 
 {% block content %}
-  <h2>Información del Sistema</h2>
+  <h1>Información del Sistema</h1>
   <ul>
     <li><strong>Versión:</strong> {{ VERSION }}</li>
     <li><strong>Plataforma:</strong> {{ PLATFORM }}</li>
     <li><strong>Directorio de Instalación:</strong> {{ PATH }}</li>
+    <li><strong>Archivo de configuración:</strong> {{ CONFIG_PATH }}</li>
     <li><strong>Archivo de Logs:</strong> {{ LOGS }}</li>
   </ul>
 {% endblock %}
