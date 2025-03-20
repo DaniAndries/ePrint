@@ -17,7 +17,7 @@ LOGS = f"C:/Users/{getpass.getuser()}/AppData/Local/ePrint/Logs"
 # ---------------------------------------------------------------------------------
 # ---------------------------Configuracion Predeterminada--------------------------
 
-# CONFIG = [{"nombre": "ePrint", "copies": 1, "format": "pdf", "duplex": 1}]
+# CONFIG = [{"nombre": "ePrint", "copies": 1, "duplex": 1}]
 
 # ---------------------------------------------------------------------------------
 # -------------------------------Notas de Version----------------------------------

@@ -86,7 +86,6 @@ def save_settings():
         # Obtiene los valores enviados por el formulario
         printer_name = request.form.get("printer")
         copies = int(request.form.get("copies"))
-        format = request.form.get("format")
         sides = request.form.get("sides")
 
         # Lee la configuración de las impresoras
@@ -97,17 +96,17 @@ def save_settings():
         for printer in printers_info:
             if printer["name"] == printer_name:
                 printer["copies"] = copies
-                printer["format"] = format
                 printer["sides"] = int(sides)
-
+                
         # Guarda la configuración actualizada
         with open(config.CONFIG_PATH, "w") as archive:
             json.dump(printers_info, archive, indent=1)
 
-        return jsonify({"message": "Configuración guardada correctamente"}), 200
+        return jsonify({"message": f"Ajustes guardados correctamente para {printer_name}."}), 200
+
     except Exception as e:
         R.error(f"Error al guardar configuración: {str(e)}")
-        return jsonify({"error": str(e)}), 500
+        return render_template("alert.html", message=f"Error: {str(e)}")
 
 
 # Ruta para cargar las versiones del sistema desde la configuracion
@@ -127,7 +126,7 @@ def get_versions():
 def print_document(printer_id):
     try:
         # Obtiene el archivo y el numero de copias desde la solicitud
-        file = request.files["format"]
+        file = request.files["file"]
         copies = int(request.form.get("copies"))
 
         try:

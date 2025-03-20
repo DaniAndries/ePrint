@@ -12,6 +12,8 @@ def get_printer_config(printer):
         printer_handle = win32print.OpenPrinter(printer)
         printer_info = win32print.GetPrinter(printer_handle, 2)
         dev_mode = printer_info.get("pDevMode", None)
+        dpi = printer_info["pDevMode"].dmPrintQuality
+        # print(f"La resolución de la impresora es: {dpi} DPI")
         duplex = (
             dev_mode.Duplex > 1 if dev_mode and hasattr(dev_mode, "Duplex") else False
         )
@@ -20,8 +22,8 @@ def get_printer_config(printer):
             "name": printer,
             "duplex": duplex,
             "copies": 1,
-            "format": "pdf",
             "sides": 1,
+            "dpi": dpi,
         }
     except Exception as e:
         R.error(f"Error al obtener información de la impresora {printer}: {str(e)}")
@@ -29,15 +31,15 @@ def get_printer_config(printer):
             "name": printer,
             "duplex": False,
             "copies": 1,
-            "format": "pdf",
             "sides": 1,
+            "dpi": 200,
         }
 
 
 # Función para verificar y reparar campos faltantes en la configuración de las impresoras
 def fix_missing_fields(printer_config):
     # Valores predeterminados para los campos que faltan
-    defaults = {"duplex": False, "copies": 1, "format": "pdf", "sides": 1}
+    defaults = {"duplex": False, "copies": 1, "sides": 1, "dpi": 300}
 
     # Reemplaza los campos faltantes por los valores predeterminados
     for field, default_value in defaults.items():

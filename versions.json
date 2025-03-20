@@ -3,11 +3,13 @@
     "versions": [
         {
             "version": "1.1.0",
-            "release_date": "2025-04-15",
+            "release_date": "2025-03-20",
             "changes": [
-            "Nueva opcion para seleccionar calidad de impresion.",
-            "Se mejoro la conversion de imágenes a PDF.",
-            "Correccion de errores menores en la interfaz de usuario."
+            "Incluida una seccion de 'Licencias'.",
+            "Nueva pagina: Configuracion de impresoras.",
+            "Guarda los datos de las impresoras para proximas impresiones con el mismo dispositivo.",
+            "Implementado un nuevo endpoint '/settings' en la API.",
+            "Se agrego compatibilidad con formatos ZPL."
             ],
             "download_url": "https://example.com/downloads/eprint_1.1.0.exe"
         },

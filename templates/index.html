@@ -10,7 +10,7 @@
       {% endblock %}
     </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='/css/styles.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
     {% block extra_css %}
@@ -31,9 +31,9 @@
             <a class="nav-link" href="{{ url_for('printers') }}">Imprimir</a>
           </li>
           <li class="nav-item">
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('get_settings') }}">Configuración de impresoras</a>
-            </li>
+            <a class="nav-link" href="{{ url_for('get_settings') }}">Configuración de impresoras</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{{ url_for('get_api') }}">Documentación API</a>
           </li>
           <li class="nav-item">
@@ -51,10 +51,10 @@
 
       {% endblock %}
     </div>
-    
     {% block extra_js %}
-    
+
     {% endblock %}
+
     <footer>
       <p>© 2025 JNC. Todos los derechos reservados.</p>
       <p>Desarrollado por jnc@jnc.es</p>
