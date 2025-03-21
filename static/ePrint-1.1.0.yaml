@@ -42,7 +42,7 @@ paths:
         "200":
           description: Lista de impresoras obtenida con éxito
 
-  /management/api:
+  /management/docs:
     get:
       tags:
        - Peticiones
@@ -80,27 +80,14 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      description: Nombre de la impresora
-                    duplex:
-                      type: boolean
-                      description: Indica si la impresora soporta impresión a doble cara
-                    copies:
-                      type: integer
-                      description: Número de copias predeterminado
-                    sides:
-                      type: integer
-                      description: Número de caras soportadas (1 para una cara, 2 para doble cara)
+                  $ref: "#/components/schemas/Printer"
 
   /printers/{printer_id}:
     post:
       tags:
        - Impresoras
       summary: Enviar documento a la impresora
-      description: Envia un archivo para ser impreso en una impresora específica
+      description: Envía un archivo para ser impreso en una impresora específica
       parameters:
         - name: printer_id
           in: path
@@ -115,19 +102,32 @@ paths:
             schema:
               type: object
               properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Archivo a imprimir
                 copies:
                   type: integer
                   description: Número de copias a imprimir
-                driver:
-                  type: string
-                  description: Configuración del driver de impresión
       responses:
         "200":
           description: Documento enviado a imprimir con éxito
         "400":
-          description: No se ha subido ningún archivo
+          description: No se ha subido ningún archivo o formato no soportado
+        "500":
+          description: Error en la impresión
 
-  /settings:
+  /management/settings:
+    get:
+      tags:
+       - Configuración
+      summary: Obtiene los ajustes de la impresora
+      description: Devuelve los ajustes de la impresora desde la configuración
+      responses:
+        "200":
+          description: Ajustes obtenidos con éxito
+        "500":
+          description: Error al obtener los ajustes
     post:
       tags:
        - Configuración
@@ -136,19 +136,9 @@ paths:
       requestBody:
         required: true
         content:
-          application/x-www-form-urlencoded:
+          application/json:
             schema:
-              type: object
-              properties:
-                printer:
-                  type: string
-                  description: Nombre de la impresora
-                copies:
-                  type: integer
-                  description: Número de copias a imprimir
-                sides:
-                  type: integer
-                  description: Número de caras (1 para una cara, 2 para doble cara)
+              $ref: "#/components/schemas/PrinterSettings"
       responses:
         "200":
           description: Ajustes guardados correctamente
@@ -162,6 +152,16 @@ paths:
                     description: Mensaje de confirmación
         "400":
           description: Error en los parámetros de configuración
+
+  /management/licenses:
+    get:
+      tags:
+       - Licencias
+      summary: Obtiene información sobre licencias
+      description: Muestra información sobre librerías y derechos de autor utilizados en el sistema.
+      responses:
+        "200":
+          description: Licencias obtenidas con éxito
 
 components:
   schemas:
@@ -180,6 +180,12 @@ components:
         sides:
           type: integer
           description: Número de caras soportadas (1 para una cara, 2 para doble cara)
+        dpi:
+          type: integer
+          description: Resolución DPI de la impresora
+        max_dpi:
+          type: integer
+          description: Resolución máxima DPI de la impresora
 
     PrinterSettings:
       type: object
@@ -193,3 +199,9 @@ components:
         sides:
           type: integer
           description: Número de caras (1 para una cara, 2 para doble cara)
+        dpi:
+          type: integer
+          description: Resolución DPI de la impresora
+        max_dpi:
+          type: integer
+          description: Resolución máxima DPI de la impresora

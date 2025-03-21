@@ -3,12 +3,11 @@
     "versions": [
         {
             "version": "1.1.0",
-            "release_date": "2025-03-20",
+            "release_date": "2025-03-21",
             "changes": [
-            "Incluida una seccion de 'Licencias'.",
-            "Nueva pagina: Configuracion de impresoras.",
-            "Guarda los datos de las impresoras para proximas impresiones con el mismo dispositivo.",
-            "Implementado un nuevo endpoint '/settings' en la API.",
+            "Nuevas paginas: Configuracion de impresoras y de licencias",
+            "Implementados nuevos endpoints '/management/settings' y '/management/licenses' en la API.",
+            "Guardado de datos de las impresoras para varios impresos con el mismo dispositivo.",
             "Se agrego compatibilidad con formatos ZPL."
             ],
             "download_url": "https://example.com/downloads/eprint_1.1.0.exe"

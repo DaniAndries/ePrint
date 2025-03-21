@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-   }
+}
 
 body {
     margin: 0;
@@ -15,7 +15,9 @@ body {
     margin-bottom: 15px;
 }
 
-.form-control, .form-check-label, .btn {
+.form-control,
+.form-check-label,
+.btn {
     margin-bottom: 10px;
     line-height: 1.5 !important;
 }
@@ -35,7 +37,7 @@ footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 100px ;
+    height: 100px;
     color: white;
     border-radius: 0px !important;
 }
@@ -88,7 +90,7 @@ footer {
 
 .container {
     max-width: 1200px;
-    margin: 30px auto; 
+    margin: 30px auto;
     padding: 20px;
     background-color: white;
     border-radius: 10px;

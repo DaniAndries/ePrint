@@ -67,7 +67,7 @@ def Logger(strLogDir):
     strFilePathAndName = os.path.join(log_subdir, "log_")
     formatter = logging.Formatter(
         fmt="%(asctime)s | %(message)s", datefmt="%Y/%m/%d %H:%M:%S"
-    ) 
+    )
     logging.basicConfig(
         filename="%s%s.log" % (strFilePathAndName, datetime.now().strftime("%y_%m_%d")),
         format="%(asctime)s | %(message)s",
