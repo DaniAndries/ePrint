@@ -25,10 +25,21 @@
         <label for="r1" class="form-check-label">Una cara</label>
       </div>
       <div class="form-check">
-        <input type="radio" name="driver" id="r2" value="Doble cara" class="form-check-input" />
+        <input type="radio" name="driver" id="r2" value="2" class="form-check-input" />
         <label for="r2" class="form-check-label">Doble cara</label>
       </div>
     </fieldset>
+    <!--  <fieldset class="mb-3" id="printFormatFiled">
+      <legend class="h6">Formato de impresión</legend>
+      <div class="form-check">
+        <input type="radio" required name="format" id="r1" value="PDF" class="form-check-input" checked />
+        <label for="r1" class="form-check-label">PDF</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" name="format" id="r2" value="ZPL" class="form-check-input" />
+        <label for="r2" class="form-check-label">ZPL</label>
+      </div>
+    </fieldset>  -->
     <button type="submit" class="btn btn-primary">Enviar</button>
   </form>
 {% endblock %}

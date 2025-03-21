@@ -1,0 +1,195 @@
+openapi: 3.0.0
+info:
+  title: ePrint API
+  description: API para la gestión de impresión y versiones de ePrint
+  version: 1.0.0
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/organizacion-117/ePrint/1.0.0
+  - url: http://localhost:5000
+    description: Servidor local
+
+paths:
+  /:
+    get:
+      tags:
+       - Peticiones
+      summary: Página de inicio
+      description: Devuelve la página de inicio con información de la plataforma
+      responses:
+        "200":
+          description: Página cargada correctamente
+
+  /management/about:
+    get:
+      tags:
+       - Peticiones
+      summary: Obtiene información del sistema
+      description: Devuelve información sobre la configuración y estado del sistema
+      responses:
+        "200":
+          description: Información obtenida con éxito
+        "500":
+          description: Error al obtener la información
+
+  /management/print:
+    get:
+      tags:
+       - Peticiones
+      summary: Lista impresoras disponibles
+      description: Devuelve una lista con las impresoras y si soportan impresión a doble cara
+      responses:
+        "200":
+          description: Lista de impresoras obtenida con éxito
+
+  /management/api:
+    get:
+      tags:
+       - Peticiones
+      summary: Obtiene información de la API
+      description: Devuelve la documentación y estado de la API
+      responses:
+        "200":
+          description: Información de la API obtenida con éxito
+        "500":
+          description: Error al obtener la API
+
+  /management/versions:
+    get:
+      tags:
+       - Peticiones
+      summary: Obtiene las versiones de la aplicación
+      description: Lista de versiones con sus notas de lanzamiento
+      responses:
+        "200":
+          description: Lista de versiones obtenida con éxito
+        "500":
+          description: Error al obtener las versiones
+
+  /printers:
+    get:
+      tags:
+       - Impresoras
+      summary: Obtiene las impresoras disponibles en el equipo
+      description: Lista de impresoras del equipo con información detallada sobre duplex, copias y caras soportadas
+      responses:
+        "200":
+          description: Lista de impresoras obtenida con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Nombre de la impresora
+                    duplex:
+                      type: boolean
+                      description: Indica si la impresora soporta impresión a doble cara
+                    copies:
+                      type: integer
+                      description: Número de copias predeterminado
+                    sides:
+                      type: integer
+                      description: Número de caras soportadas (1 para una cara, 2 para doble cara)
+
+  /printers/{printer_id}:
+    post:
+      tags:
+       - Impresoras
+      summary: Enviar documento a la impresora
+      description: Envia un archivo para ser impreso en una impresora específica
+      parameters:
+        - name: printer_id
+          in: path
+          required: true
+          description: ID de la impresora de destino
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                copies:
+                  type: integer
+                  description: Número de copias a imprimir
+                driver:
+                  type: string
+                  description: Configuración del driver de impresión
+      responses:
+        "200":
+          description: Documento enviado a imprimir con éxito
+        "400":
+          description: No se ha subido ningún archivo
+
+  /settings:
+    post:
+      tags:
+       - Configuración
+      summary: Guarda los ajustes de la impresora
+      description: Permite guardar la configuración de la impresora seleccionada, incluyendo el número de copias y la opción de impresión a doble cara.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                printer:
+                  type: string
+                  description: Nombre de la impresora
+                copies:
+                  type: integer
+                  description: Número de copias a imprimir
+                sides:
+                  type: integer
+                  description: Número de caras (1 para una cara, 2 para doble cara)
+      responses:
+        "200":
+          description: Ajustes guardados correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de confirmación
+        "400":
+          description: Error en los parámetros de configuración
+
+components:
+  schemas:
+    Printer:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre de la impresora
+        duplex:
+          type: boolean
+          description: Indica si la impresora soporta impresión a doble cara
+        copies:
+          type: integer
+          description: Número de copias predeterminado
+        sides:
+          type: integer
+          description: Número de caras soportadas (1 para una cara, 2 para doble cara)
+
+    PrinterSettings:
+      type: object
+      properties:
+        printer:
+          type: string
+          description: Nombre de la impresora
+        copies:
+          type: integer
+          description: Número de copias a imprimir
+        sides:
+          type: integer
+          description: Número de caras (1 para una cara, 2 para doble cara)

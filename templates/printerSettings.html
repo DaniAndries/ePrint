@@ -1,0 +1,72 @@
+{% extends 'index.html' %}
+
+{% block title %}
+  Ajustes de Impresora - ePrint
+{% endblock %}
+
+{% block content %}
+  <h1>Ajustes de Impresora</h1>
+
+  <form id="printerSettingsForm">
+    <div class="form-group">
+      <label for="printerSelect">Seleccionar Impresora</label>
+      <select id="printerSelect" name="printer" class="form-control" required>
+        {% for printer in printers %}
+          <option value="{{ printer.name }}" {% if printer.name == printers[0].name %} selected {% endif %}>{{ printer.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="copiesNumber">Número de Copias</label>
+      <input name="copies" type="number" id="copiesNumber" value="{{ printers[0].copies }}" min="1" max="10" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <fieldset class="mb-3" id="printModeField">
+        <legend class="h6">Modo de impresión</legend>
+        <div class="form-check">
+          <input type="radio" required name="sides" id="r1" value=1 class="form-check-input" checked />
+          <label for="r1" class="form-check-label">Una cara</label>
+        </div>
+        <div class="form-check">
+          <input type="radio" name="sides" id="r2" value=2 class="form-check-input" />
+          <label for="r2" class="form-check-label">Doble cara</label>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="form-group">
+      <label for="copiesNumber">DPI</label>
+      <input name="dpi" type="number" id="dpi" value="{{ printers[0].dpi }}" min="1" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Ajustes</button>
+  </form>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById("printerSettingsForm").addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevenir el envío tradicional del formulario
+
+      const formData = new FormData(this);
+
+      fetch("/settings", {
+        method: "POST",
+        body: formData,
+      })
+      .then(response => response.json()) // Respuesta en formato JSON
+      .then(data => {
+        if (data.message) {
+          alert(data.message); // Mostrar el mensaje del JSON en una ventana emergente
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("Hubo un error al procesar la solicitud.");
+      });
+    });
+  </script>
+{% endblock %}

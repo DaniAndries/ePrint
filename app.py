@@ -1,12 +1,12 @@
+import json
 import os
-import tempfile
 import requests
-import win32print
 import win32api
 from flask import Flask, render_template, request, jsonify
 from flasgger import Swagger
 import config
 import logger as R
+from printer_config import printers_config
 
 R.Logger("logs")
 
@@ -52,29 +52,18 @@ def get_info():
 def get_printers():
     R.info("Obteniendo impresoras del cliente")
     try:
-        printers_info = []
-        # Obtiene el nombre de todas las impresoras
-        printer_names = [printer[2] for printer in win32print.EnumPrinters(2)]
-        for printer in printer_names:
-            try:
-                # Abre cada impresora y obtiene su informacion
-                printer_handle = win32print.OpenPrinter(printer)
-                printer_info = win32print.GetPrinter(printer_handle, 2)
-                dev_mode = printer_info.get("pDevMode", None)
-                # Verifica si la impresora soporta duplex (impresion a dos caras)
-                duplex = (
-                    dev_mode.Duplex > 1
-                    if dev_mode and hasattr(dev_mode, "Duplex")
-                    else False
-                )
-                win32print.ClosePrinter(printer_handle)
-            except Exception:
-                duplex = False  # Si falla, se asume que no tiene soporte duplex
-            printers_info.append({"name": printer, "duplex": duplex})
+        # Abre el archivo de configuración y lee las impresoras
+        with open(config.CONFIG_PATH, "r") as archive:
+            printers_info = json.load(archive)
+
+        # Devuelve la lista de impresoras en formato JSON
+        if not printers_info:
+            raise ValueError("No se encontraron impresoras en la configuración.")
+
         return jsonify(printers_info)
     except Exception as e:
         R.error(f"Error: {str(e)}")
-        return jsonify([]), 500
+        return jsonify({"error": str(e)}), 500
 
 
 # Ruta para cargar la pagina de impresion con las impresoras disponibles
@@ -82,12 +71,42 @@ def get_printers():
 def printers():
     R.info("Cargando pagina de impresion")
     try:
-        # Llama a la funcion para obtener las impresoras y las pasa a la plantilla
-        printers_info = get_printers().json
+        # Lee la configuración de las impresoras desde config.json
+        with open(config.CONFIG_PATH, "r") as archive:
+            printers_info = json.load(archive)
         return render_template("print.html", printers=printers_info)
     except Exception as e:
         R.error(f"Error al obtener impresoras: {str(e)}")
         return jsonify({"error": str(e)}), 500
+
+
+@app.route("/settings", methods=["POST"])
+def save_settings():
+    try:
+        # Obtiene los valores enviados por el formulario
+        printer_name = request.form.get("printer")
+        copies = int(request.form.get("copies"))
+        sides = request.form.get("sides")
+
+        # Lee la configuración de las impresoras
+        with open(config.CONFIG_PATH, "r") as archive:
+            printers_info = json.load(archive)
+
+        # Encuentra la impresora seleccionada y actualiza la configuración
+        for printer in printers_info:
+            if printer["name"] == printer_name:
+                printer["copies"] = copies
+                printer["sides"] = int(sides)
+                
+        # Guarda la configuración actualizada
+        with open(config.CONFIG_PATH, "w") as archive:
+            json.dump(printers_info, archive, indent=1)
+
+        return jsonify({"message": f"Ajustes guardados correctamente para {printer_name}."}), 200
+
+    except Exception as e:
+        R.error(f"Error al guardar configuración: {str(e)}")
+        return render_template("alert.html", message=f"Error: {str(e)}")
 
 
 # Ruta para cargar las versiones del sistema desde la configuracion
@@ -107,7 +126,7 @@ def get_versions():
 def print_document(printer_id):
     try:
         # Obtiene el archivo y el numero de copias desde la solicitud
-        file = request.files["format"]
+        file = request.files["file"]
         copies = int(request.form.get("copies"))
 
         try:
@@ -137,11 +156,37 @@ def get_api():
     return render_template("api-doc.html")
 
 
+# Ruta para mostrar los ajustes de la impresora
+@app.route("/settings")
+def get_settings():
+    R.info("Cargando ajustes")
+    try:
+        # Lee las impresoras desde el archivo de configuración
+        with open(config.CONFIG_PATH, "r") as archive:
+            printers_info = json.load(archive)
+
+        # Pasa las impresoras al template
+        return render_template("printerSettings.html", printers=printers_info)
+
+    except Exception as e:
+        R.error(f"Error al cargar los ajustes: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+
+# Ruta para mostrar las librerias, sus licencias y los derechos de autor
+@app.route("/licenses")
+def get_licenses():
+    R.info("Cargando licencias")
+    return render_template("licenses.html")
+
+
 # Crea la carpeta temporal para guardar los archivos si no existe
 temp_folder = "temp_folder"
 if not os.path.exists(temp_folder):
     os.makedirs(temp_folder)
 
+# Llamar a la función para que se ejecute al inicio
+printers_config()
+
 if __name__ == "__main__":
-    R.info("--------------------------Iniciando programa--------------------------")
     app.run()
