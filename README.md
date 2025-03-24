@@ -43,15 +43,15 @@ Envía un documento a la impresora especificada.
 
 ### Configuración
 
-#### GET /management/settings
+#### `GET /management/settings`
 Obtiene los ajustes de la impresora
 
-#### POST /management/settings
+#### `POST /management/settings`
 Guarda los ajustes de la impresora
 
 ### Licencias
 
-#### GET /management/licenses
+#### `GET /management/licenses`
 Obtiene información sobre licencias
 
 ## 🚀 Instalación y Ejecución
