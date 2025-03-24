@@ -34,12 +34,25 @@ Obtiene las versiones de la aplicación.
 #### `GET /management/docs`
 Obtiene información de la API.
 
-### Impresión
+### Impresoras
 #### `GET /printers`
 Obtiene la lista de impresoras disponibles en el equipo.
 
 #### `POST /printers/{printer_id}`
 Envía un documento a la impresora especificada.
+
+### Configuración
+
+#### GET /management/settings
+Obtiene los ajustes de la impresora
+
+#### POST /management/settings
+Guarda los ajustes de la impresora
+
+### Licencias
+
+#### GET /management/licenses
+Obtiene información sobre licencias
 
 ## 🚀 Instalación y Ejecución
 
