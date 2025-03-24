@@ -1,10 +1,10 @@
 # 🖨️ Aplicación de Impresión de Documentos PDF
 
-Esta aplicación proporciona una interfaz gráfica y una API para seleccionar una impresora y enviar documentos PDF a imprimir de manera sencilla.
+Esta aplicación proporciona una interfaz gráfica y una API para seleccionar una impresora y enviar documentos PDF y ZPL a imprimir de manera sencilla.
 
 ## ✨ Características Principales
 - 🌐 **Interfaz web intuitiva** para la selección de impresoras y envío de documentos.
-- 📄 **Soporte para archivos PDF** con conversión de imagen previa a la impresión.
+- 📄 **Soporte para archivos PDF y ZPL** con conversión de imagen previa a la impresión.
 - 🔄 **Gestor de trabajos de impresión** con información detallada de impresoras disponibles.
 - 🔒 **Compatibilidad con Windows** mediante el uso de `pywin32` para la gestión de impresoras.
 
@@ -79,7 +79,7 @@ flask run
 1. Iniciar la aplicación.
 2. Acceder a la interfaz web.
 3. Seleccionar una impresora disponible.
-4. Subir un documento PDF y enviarlo a imprimir.
+4. Subir un documento PDF o ZPL y enviarlo a imprimir.
 
 ## 🤝 Colaboradores
 Este proyecto ha sido desarrollado en colaboración con:
